@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog title="Article" publisher="www.developer.com">     
+	<article>
+		<title>Creating RESTful Web Services with JAX-RS</title>           
+		<publish>November 5, 2013</publish>
+		<author>Manoj Debnath</author>
+		<link>http://www.developer.com/java/creating-restful-web-services-with-jax-rs.html</link>
+	</article>
+
+</catalog>
+
