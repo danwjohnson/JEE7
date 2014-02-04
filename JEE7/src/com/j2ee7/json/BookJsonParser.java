@@ -8,13 +8,41 @@ import javax.json.stream.JsonParser;
 
 public class BookJsonParser {
 
-	public String parseBookAndGetTitle() {
+	
+	private String fileName;
+	
+	public BookJsonParser(String fileName) {
+		
+		this.fileName = fileName;
+		
+	} // end constructor
+	
+	
+	/**
+	 * Parse the json file
+	 */
+	public void parseJson() {
+		
+		JsonParser parser = createParser();
+		String title = parseBookAndGetTitle(parser);
+		
+		System.out.println ("Book title: " + title);
+		
+	} // end parseJson()
+	
+	
+	
+	/**
+	 * Parse the book json file and get the title
+	 * @param parser
+	 * @return String title
+	 */
+	private String parseBookAndGetTitle(JsonParser parser) {
 		
 		String title = "";
 		
 		try {
 			
-			JsonParser parser = Json.createParser(new FileReader("book.json"));
 			while (parser.hasNext()) {
 				
 				JsonParser.Event event = parser.next();
@@ -36,10 +64,31 @@ public class BookJsonParser {
 			} // end while loop
 			
 		} // end try
-		catch (FileNotFoundException ex) {} // end catch
+		catch (Exception ex) {} // end catch
 			
 		return title;
 		
 	} // end parseBookAndGetTitle()
+	
+	
+	/**
+	 * Create the JSON parser
+	 * @return JsonParser parser
+	 */
+	private JsonParser createParser() {
+		
+		try {
+		
+			JsonParser parser = Json.createParser(new FileReader(fileName));
+			return parser;
+	
+		}// end try
+		catch (FileNotFoundException ex) {
+			
+			return null;
+			
+		} // end catch
+			
+	} // end createParser
 	
 } // end BookJsonParser class

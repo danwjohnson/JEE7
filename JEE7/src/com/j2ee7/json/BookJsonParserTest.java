@@ -4,9 +4,8 @@ public class BookJsonParserTest {
 
 	public static void main(String args[]) {
 		
-		BookJsonParser jsonParser = new BookJsonParser();
-		String title = jsonParser.parseBookAndGetTitle();
-		System.out.println("Book Title: " + title);
+		BookJsonParser jsonParser = new BookJsonParser("book2.json");
+		jsonParser.parseJson();
 		
 	} // end main
 	
