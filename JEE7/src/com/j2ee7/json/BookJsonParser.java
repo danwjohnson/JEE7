@@ -10,6 +10,7 @@ public class BookJsonParser {
 
 	
 	private String fileName;
+	private String [] elements;
 	
 	public BookJsonParser(String fileName) {
 		
@@ -24,9 +25,9 @@ public class BookJsonParser {
 	public void parseJson() {
 		
 		JsonParser parser = createParser();
-		String title = parseBookAndGetTitle(parser);
+		elements = parseBookAndGetTitle(parser);
 		
-		System.out.println ("Book title: " + title);
+		System.out.println ("JSON elements: " + elements[0] + " " + elements[1]);
 		
 	} // end parseJson()
 	
@@ -37,9 +38,9 @@ public class BookJsonParser {
 	 * @param parser
 	 * @return String title
 	 */
-	private String parseBookAndGetTitle(JsonParser parser) {
+	private String[] parseBookAndGetTitle(JsonParser parser) {
 		
-		String title = "";
+		String[] elements = new String[10];
 		
 		try {
 			
@@ -47,7 +48,8 @@ public class BookJsonParser {
 				
 				JsonParser.Event event = parser.next();
 				while (parser.hasNext() && !(event.equals(JsonParser.Event.KEY_NAME) 
-						&& parser.getString().matches("title"))) {
+						&& (parser.getString().matches("title")
+						|| (parser.getString().matches("isbn"))))) {
 					
 					event = parser.next();
 					
@@ -57,16 +59,24 @@ public class BookJsonParser {
 						parser.getString().matches("title")) {
 					
 					parser.next();
-					title = parser.getString();
+					elements[1] = parser.getString();
 					
 				} // end if
+				
+				if (event.equals(JsonParser.Event.KEY_NAME) && 
+						parser.getString().matches("isbn")) {
+					
+					parser.next();
+					elements[0] = parser.getString();
+					
+				}
 				
 			} // end while loop
 			
 		} // end try
 		catch (Exception ex) {} // end catch
 			
-		return title;
+		return elements;
 		
 	} // end parseBookAndGetTitle()
 	
