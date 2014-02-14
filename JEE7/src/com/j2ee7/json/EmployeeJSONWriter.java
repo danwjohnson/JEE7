@@ -56,7 +56,7 @@ public class EmployeeJSONWriter {
 		
 	} // end buildEmployeeJSONObject()
 	
-	private static Employee createEmployee() {
+	static Employee createEmployee() {
 		
 		Employee emp = new Employee();
 		
